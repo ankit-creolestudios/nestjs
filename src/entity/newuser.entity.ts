@@ -1,20 +1,20 @@
 import { Column, Model, Table, Unique } from 'sequelize-typescript';
-@Table({})
-export class newUserEntity extends Model {
-  @Column({})
+@Table
+export class newUser extends Model {
+  @Column
   firstName: string;
-  @Column({})
+  @Column
   lastName: string;
 
-  @Column({})
+  @Column
   phone: string;
-  @Column({})
+  @Column
   password: string;
 
-  @Column({})
+  @Column
   dateofbirth: string;
 
   @Unique
-  @Column({})
+  @Column
   email: string;
 }

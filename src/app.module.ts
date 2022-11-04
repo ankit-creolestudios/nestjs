@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { CatModule } from './cat/cat.module';
-import { CrudModule } from './crud/crud.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { newUser } from './entity/newuser.entity';
 
 @Module({
-  imports: [CatModule, CrudModule, AuthModule],
+  imports: [AuthModule],
   controllers: [],
   providers: [],
 })

@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import { catModel } from 'src/cat/cat.entity';
+import { newUser } from '../entity/newuser.entity';
 export const databaseProvider = [
   {
     provide: 'Sequelize',
@@ -12,7 +12,7 @@ export const databaseProvider = [
         password: 'Creole@123',
         database: 'relationDB',
       });
-      sequelize.addModels([catModel]);
+      sequelize.addModels([newUser]);
       await sequelize.sync();
       return sequelize;
     },
