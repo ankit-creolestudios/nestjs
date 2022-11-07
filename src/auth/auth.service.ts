@@ -6,17 +6,25 @@ import {
 import { signinuser } from 'src/types/signinuser';
 import { newUser } from 'src/entity/newuser.entity';
 import { newuser } from 'src/types/newuser';
-// export interface IUserService {
-//   registerNewUser(registeruser: newuser): Promise<newUser>;
-// }
+import * as bcrypt from 'bcryptjs';
+import { JwtService } from '@nestjs/jwt';
+
 @Injectable()
 export class AuthService {
-  constructor(@Inject('AUTH_REPO') private authRepo: typeof newUser) {}
+  constructor(
+    @Inject('AUTH_REPO') private authRepo: typeof newUser,
+    private jwt: JwtService,
+  ) {}
   async registerNewUser(registeruser: newuser) {
-    // console.log(registeruser);
-    // return this.authRepo.create({ ...registeruser });
+    const hashed = await bcrypt.hash(registeruser.password, 12);
+    console.log(typeof hashed);
+    const salt = await bcrypt.getSalt(hashed);
     try {
-      return await this.authRepo.create({ ...registeruser });
+      return await this.authRepo.create({
+        ...registeruser,
+        password: hashed,
+        salt: salt,
+      });
     } catch (err) {
       throw new InternalServerErrorException(err);
     }
@@ -28,9 +36,24 @@ export class AuthService {
     if (!userFind) {
       throw new InternalServerErrorException('Invalid credential');
     }
-    const isPaswordmatch = password === userFind.password;
+    const isPaswordmatch = await bcrypt.compare(password, userFind.password);
     if (isPaswordmatch) {
-      return { user: userFind };
+      const jwtPayload = { email };
+      const jwttoken = await this.jwt.signAsync(jwtPayload, {
+        expiresIn: '1d',
+        algorithm: 'HS512',
+      });
+      return {
+        user: {
+          firstName: userFind.firstName,
+          lastName: userFind.lastName,
+          phone: userFind.phone,
+
+          dateofbirth: userFind.dateofbirth,
+          email: userFind.email,
+        },
+        token: jwttoken,
+      };
     } else {
       throw new InternalServerErrorException('Invalid credential');
     }

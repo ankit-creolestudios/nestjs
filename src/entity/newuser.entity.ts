@@ -17,4 +17,6 @@ export class newUser extends Model {
   @Unique
   @Column
   email: string;
+  @Column
+  salt: string;
 }

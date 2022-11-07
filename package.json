@@ -28,6 +28,8 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/sequelize": "^9.0.0",
+    "@types/bcryptjs": "^2.4.2",
+    "bcryptjs": "^2.4.3",
     "class-validator": "^0.13.2",
     "connect-session-sequelize": "^7.1.5",
     "express-session": "^1.17.3",
@@ -80,5 +82,8 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "engines": {
+    "node": "14.20.1"
   }
 }

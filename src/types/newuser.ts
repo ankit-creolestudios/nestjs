@@ -7,4 +7,5 @@ export interface newuser {
   phone: string;
   password: string;
   rePassword: string;
+  salt: string;
 }
