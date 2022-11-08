@@ -11,7 +11,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // app.use(session({ store: mystore }));
   app.setGlobalPrefix('api/v1');
-  app.enableCors();
+  app.enableCors({
+    allowedHeaders: '*',
+    origin: '*',
+    credentials: true,
+  });
   await app.listen(4000);
 }
 bootstrap();
