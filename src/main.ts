@@ -10,7 +10,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // app.use(session({ store: mystore }));
-  app.setGlobalPrefix('api/v1');
+  app.setGlobalPrefix('api/v1', { exclude: ['/'] });
   app.enableCors({
     allowedHeaders: '*',
     origin: '*',
