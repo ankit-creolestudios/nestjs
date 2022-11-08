@@ -1,4 +1,12 @@
-import { Column, Model, Table, Unique } from 'sequelize-typescript';
+import {
+  BelongsToMany,
+  Column,
+  HasMany,
+  Model,
+  Table,
+  Unique,
+} from 'sequelize-typescript';
+import { todos } from './todo.entity';
 @Table
 export class newUser extends Model {
   @Column
@@ -19,4 +27,9 @@ export class newUser extends Model {
   email: string;
   @Column
   salt: string;
+  @HasMany(() => todos, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  todo: todos[];
 }

@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
+import { todos } from 'src/entity/todo.entity';
 import { newUser } from '../entity/newuser.entity';
 export const databaseProvider = [
   {
@@ -12,7 +13,7 @@ export const databaseProvider = [
         password: 'Creole@123',
         database: 'relationDB',
       });
-      sequelize.addModels([newUser]);
+      sequelize.addModels([newUser, todos]);
       await sequelize.sync();
       return sequelize;
     },

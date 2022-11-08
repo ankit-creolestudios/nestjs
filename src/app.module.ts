@@ -4,9 +4,10 @@ import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { newUser } from './entity/newuser.entity';
 import { AppController } from './app.controller';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
-  imports: [AuthModule],
+  imports: [AuthModule, TodoModule],
   controllers: [AppController],
   providers: [],
 })
